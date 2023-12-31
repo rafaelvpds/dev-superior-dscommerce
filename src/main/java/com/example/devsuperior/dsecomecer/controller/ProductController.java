@@ -1,25 +1,23 @@
 package com.example.devsuperior.dsecomecer.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.devsuperior.dsecomecer.entities.Product;
-import com.example.devsuperior.dsecomecer.repositories.ProductRepository;
+import com.example.devsuperior.dsecomecer.Service.ProductService;
+import com.example.devsuperior.dsecomecer.dto.ProductDTO;
 
 @RestController
 @RequestMapping(value = "/products")
 public class ProductController {
     @Autowired
-    private ProductRepository productRepository;
+    private ProductService service;
 
-    @GetMapping
-    public String test() {
-        Optional<Product> proOptional = productRepository.findById(1L);
-        Product product = proOptional.get();
-        return product.getName();
+    @GetMapping(value = "/{id}")
+    public ProductDTO findById(@PathVariable Long id) {
+
+        return service.findById(id);
     }
 }
