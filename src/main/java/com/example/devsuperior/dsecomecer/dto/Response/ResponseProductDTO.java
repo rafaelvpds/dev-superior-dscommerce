@@ -1,18 +1,18 @@
-package com.example.devsuperior.dsecomecer.dto;
+package com.example.devsuperior.dsecomecer.dto.Response;
 
 import com.example.devsuperior.dsecomecer.entities.Product;
 
-public class ProductDTO {
+public class ResponseProductDTO {
     private Long id;
     private String name;
     private String description;
     private Double price;
     private String imgUrl;
 
-    public ProductDTO() {
+    public ResponseProductDTO() {
     }
 
-    public ProductDTO(Long id, String name, String description, Double price, String imgUrl) {
+    public ResponseProductDTO(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -20,7 +20,7 @@ public class ProductDTO {
         this.imgUrl = imgUrl;
     }
 
-    public ProductDTO(Product entity) {
+    public ResponseProductDTO(Product entity) {
         id = entity.getId();
         name = entity.getName();
         description = entity.getDescription();

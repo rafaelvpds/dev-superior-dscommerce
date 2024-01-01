@@ -7,7 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.devsuperior.dsecomecer.dto.ProductDTO;
+import com.example.devsuperior.dsecomecer.dto.Request.RequestProductDTO;
+import com.example.devsuperior.dsecomecer.dto.Response.ResponseProductDTO;
 import com.example.devsuperior.dsecomecer.entities.Product;
 import com.example.devsuperior.dsecomecer.repositories.ProductRepository;
 
@@ -17,24 +18,37 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Transactional(readOnly = true)
-    public ProductDTO findById(Long id) {
+    public ResponseProductDTO findById(Long id) {
         // Optional<Product> result = productRepository.findById(id);
         // Product product = result.get();
         // ProductDTO productDTO = new ProductDTO(product);
         // return productDTO;
         Product product = productRepository.findById(id).get();
-        return new ProductDTO(product);
+        return new ResponseProductDTO(product);
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(Pageable pageable) {
+    public Page<ResponseProductDTO> findAll(Pageable pageable) {
         // Optional<Product> result = productRepository.findById(id);
         // Product product = result.get();
         // ProductDTO productDTO = new ProductDTO(product);
         // return productDTO;
         PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort());
         Page<Product> productList = productRepository.findAll(pageable);
-        return productList.map(x -> new ProductDTO(x));
+        return productList.map(x -> new ResponseProductDTO(x));
+    }
+
+    public ResponseProductDTO insert(RequestProductDTO productDTO) {
+        Product entity = new Product();
+        entity.setName(productDTO.getName());
+        entity.setDescription(productDTO.getDescription());
+        entity.setImgUrl(productDTO.getImgUrl());
+        entity.setPrice(productDTO.getPrice());
+
+        entity = productRepository.save(entity);
+
+        return new ResponseProductDTO(entity);
+
     }
 
 }
