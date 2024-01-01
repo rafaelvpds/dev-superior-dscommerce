@@ -1,6 +1,7 @@
 package com.example.devsuperior.dsecomecer.dto.Request;
 
 public class RequestProductDTO {
+    private Long id;
     private String name;
     private String description;
     private String imgUrl;
@@ -9,11 +10,16 @@ public class RequestProductDTO {
     public RequestProductDTO() {
     }
 
-    public RequestProductDTO(String name, String description, String imgUrl, Double price) {
+    public RequestProductDTO(Long id, String name, String description, String imgUrl, Double price) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.imgUrl = imgUrl;
         this.price = price;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {

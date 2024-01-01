@@ -1,5 +1,6 @@
 package com.example.devsuperior.dsecomecer.dto.Response;
 
+import com.example.devsuperior.dsecomecer.dto.Request.RequestProductDTO;
 import com.example.devsuperior.dsecomecer.entities.Product;
 
 public class ResponseProductDTO {
@@ -26,6 +27,14 @@ public class ResponseProductDTO {
         description = entity.getDescription();
         price = entity.getPrice();
         imgUrl = entity.getImgUrl();
+    }
+
+    public ResponseProductDTO(RequestProductDTO request) {
+        id = request.getId();
+        name = request.getName();
+        description = request.getDescription();
+        price = request.getPrice();
+        imgUrl = request.getImgUrl();
     }
 
     public Long getId() {
