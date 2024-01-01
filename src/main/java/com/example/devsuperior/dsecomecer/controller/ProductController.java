@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,7 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<Page<ResponseProductDTO>> findAll(
             @PageableDefault(page = 0, size = 12) @SortDefault.SortDefaults({
-                    @SortDefault(sort = "name", direction = Sort.Direction.ASC)
+                    @SortDefault(sort = "id", direction = Sort.Direction.ASC)
             }) Pageable pageable) {
 
         return ResponseEntity.ok(service.findAll(pageable));
@@ -49,5 +50,12 @@ public class ProductController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(productDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(productDTO);
+    }
+
+    @PutMapping("/{id}")
+
+    public ResponseEntity<ResponseProductDTO> update(@PathVariable Long id, @RequestBody RequestProductDTO dto) {
+
+        return ResponseEntity.ok(service.update(id, dto));
     }
 }
