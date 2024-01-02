@@ -23,6 +23,8 @@ import com.example.devsuperior.dsecomecer.Service.ProductService;
 import com.example.devsuperior.dsecomecer.dto.Request.RequestProductDTO;
 import com.example.devsuperior.dsecomecer.dto.Response.ResponseProductDTO;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/products")
 public class ProductController {
@@ -45,7 +47,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseProductDTO> insertProduct(@RequestBody RequestProductDTO dto) {
+    public ResponseEntity<ResponseProductDTO> insertProduct(@Valid @RequestBody RequestProductDTO dto) {
         ResponseProductDTO productDTO = new ResponseProductDTO(dto);
         productDTO = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -55,7 +57,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
 
-    public ResponseEntity<ResponseProductDTO> update(@PathVariable Long id, @RequestBody RequestProductDTO dto) {
+    public ResponseEntity<ResponseProductDTO> update(@PathVariable Long id, @Valid @RequestBody RequestProductDTO dto) {
 
         return ResponseEntity.ok(service.update(id, dto));
     }
