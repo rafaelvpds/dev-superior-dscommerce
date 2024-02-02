@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -41,9 +42,9 @@ public class ProductController {
     public ResponseEntity<Page<ResponseProductDTO>> findAll(
             @PageableDefault(page = 0, size = 12) @SortDefault.SortDefaults({
                     @SortDefault(sort = "id", direction = Sort.Direction.DESC)
-            }) Pageable pageable) {
+            }) Pageable pageable, @RequestParam(value = "name", defaultValue = "") String name) {
 
-        return ResponseEntity.ok(service.findAll(pageable));
+        return ResponseEntity.ok(service.findAll(name, pageable));
     }
 
     @PostMapping
