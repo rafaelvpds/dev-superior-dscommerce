@@ -1,5 +1,6 @@
 package com.example.devsuperior.dsecomecer.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,7 +32,7 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
     private String phone;
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
     private String password;
     @ManyToMany
     @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -43,7 +44,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(Long id, String name, String email, String phone, LocalDateTime birthDate, String password) {
+    public User(Long id, String name, String email, String phone, LocalDate birthDate, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -54,6 +55,10 @@ public class User implements UserDetails {
 
     public Long getId() {
         return id;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
     public String getName() {
@@ -80,11 +85,11 @@ public class User implements UserDetails {
         this.phone = phone;
     }
 
-    public LocalDateTime getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDateTime birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
