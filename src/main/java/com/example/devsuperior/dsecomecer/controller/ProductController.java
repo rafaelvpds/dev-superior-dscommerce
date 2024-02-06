@@ -24,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.devsuperior.dsecomecer.Service.ProductService;
 import com.example.devsuperior.dsecomecer.dto.Request.RequestProductDTO;
 import com.example.devsuperior.dsecomecer.dto.Response.ResponseProductDTO;
+import com.example.devsuperior.dsecomecer.dto.Response.ResponseProductMinDTO;
 
 import jakarta.validation.Valid;
 
@@ -42,7 +43,7 @@ public class ProductController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
     @GetMapping
-    public ResponseEntity<Page<ResponseProductDTO>> findAll(
+    public ResponseEntity<Page<ResponseProductMinDTO>> findAll(
             @PageableDefault(page = 0, size = 12) @SortDefault.SortDefaults({
                     @SortDefault(sort = "id", direction = Sort.Direction.DESC)
             }) Pageable pageable, @RequestParam(value = "name", defaultValue = "") String name) {

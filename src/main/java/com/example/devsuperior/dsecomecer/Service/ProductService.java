@@ -13,6 +13,7 @@ import com.example.devsuperior.dsecomecer.Service.exceptions.DatabaseException;
 import com.example.devsuperior.dsecomecer.Service.exceptions.ResourceNotFoundExceptions;
 import com.example.devsuperior.dsecomecer.dto.Request.RequestProductDTO;
 import com.example.devsuperior.dsecomecer.dto.Response.ResponseProductDTO;
+import com.example.devsuperior.dsecomecer.dto.Response.ResponseProductMinDTO;
 import com.example.devsuperior.dsecomecer.entities.Product;
 import com.example.devsuperior.dsecomecer.repositories.ProductRepository;
 
@@ -35,14 +36,14 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ResponseProductDTO> findAll(String name, Pageable pageable) {
+    public Page<ResponseProductMinDTO> findAll(String name, Pageable pageable) {
         // Optional<Product> result = productRepository.findById(id);
         // Product product = result.get();
         // ProductDTO productDTO = new ProductDTO(product);
         // return productDTO;
         PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort());
         Page<Product> productList = productRepository.searchByName(name, pageable);
-        return productList.map(x -> new ResponseProductDTO(x));
+        return productList.map(x -> new ResponseProductMinDTO(x));
     }
 
     @Transactional
