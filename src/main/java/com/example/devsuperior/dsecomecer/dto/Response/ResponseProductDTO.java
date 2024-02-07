@@ -1,6 +1,10 @@
 package com.example.devsuperior.dsecomecer.dto.Response;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.devsuperior.dsecomecer.dto.Request.RequestProductDTO;
+import com.example.devsuperior.dsecomecer.entities.Category;
 import com.example.devsuperior.dsecomecer.entities.Product;
 
 public class ResponseProductDTO {
@@ -9,6 +13,7 @@ public class ResponseProductDTO {
     private String description;
     private Double price;
     private String imgUrl;
+    private List<ResponseCategoryDTO> category = new ArrayList<>();
 
     public ResponseProductDTO() {
     }
@@ -27,6 +32,9 @@ public class ResponseProductDTO {
         description = entity.getDescription();
         price = entity.getPrice();
         imgUrl = entity.getImgUrl();
+        for (Category cat : entity.getCategories()) {
+            category.add(new ResponseCategoryDTO(cat));
+        }
     }
 
     public ResponseProductDTO(RequestProductDTO request) {
@@ -55,6 +63,10 @@ public class ResponseProductDTO {
 
     public String getImgUrl() {
         return imgUrl;
+    }
+
+    public List<ResponseCategoryDTO> getCategory() {
+        return category;
     }
 
 }

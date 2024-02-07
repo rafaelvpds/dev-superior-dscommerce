@@ -1,5 +1,9 @@
 package com.example.devsuperior.dsecomecer.Service;
 
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -12,9 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.devsuperior.dsecomecer.Service.exceptions.DatabaseException;
 import com.example.devsuperior.dsecomecer.Service.exceptions.ResourceNotFoundExceptions;
 import com.example.devsuperior.dsecomecer.dto.Request.RequestProductDTO;
+import com.example.devsuperior.dsecomecer.dto.Response.ResponseCategoryDTO;
 import com.example.devsuperior.dsecomecer.dto.Response.ResponseProductDTO;
 import com.example.devsuperior.dsecomecer.dto.Response.ResponseProductMinDTO;
+import com.example.devsuperior.dsecomecer.entities.Category;
 import com.example.devsuperior.dsecomecer.entities.Product;
+import com.example.devsuperior.dsecomecer.repositories.CategoryRepository;
 import com.example.devsuperior.dsecomecer.repositories.ProductRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -23,6 +30,9 @@ import jakarta.persistence.EntityNotFoundException;
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
     public ResponseProductDTO findById(Long id) {
@@ -93,6 +103,11 @@ public class ProductService {
         entity.setDescription(productDTO.getDescription());
         entity.setImgUrl(productDTO.getImgUrl());
         entity.setPrice(productDTO.getPrice());
-    }
+        entity.getCategories().clear();
+        for (ResponseCategoryDTO categoryDTO : productDTO.getCategories()) {
+            Category cat = categoryRepository.getReferenceById(categoryDTO.getId());
+            entity.getCategories().add(cat);
+        }
 
+    }
 }
