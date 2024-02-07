@@ -1,9 +1,5 @@
 package com.example.devsuperior.dsecomecer.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -36,10 +32,6 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ResponseProductDTO findById(Long id) {
-        // Optional<Product> result = productRepository.findById(id);
-        // Product product = result.get();
-        // ProductDTO productDTO = new ProductDTO(product);
-        // return productDTO;
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundExceptions("Produc not found"));
         return new ResponseProductDTO(product);
@@ -47,10 +39,6 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Page<ResponseProductMinDTO> findAll(String name, Pageable pageable) {
-        // Optional<Product> result = productRepository.findById(id);
-        // Product product = result.get();
-        // ProductDTO productDTO = new ProductDTO(product);
-        // return productDTO;
         PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort());
         Page<Product> productList = productRepository.searchByName(name, pageable);
         return productList.map(x -> new ResponseProductMinDTO(x));
@@ -74,10 +62,6 @@ public class ProductService {
 
             Product entity = productRepository.getReferenceById(id);
             copyDtoToEntity(productDTO, entity);
-            // entity.setName(productDTO.getName());
-            // entity.setDescription(productDTO.getDescription());
-            // entity.setImgUrl(productDTO.getImgUrl());
-            // entity.setPrice(productDTO.getPrice());
             entity = productRepository.save(entity);
             return new ResponseProductDTO(entity);
         } catch (EntityNotFoundException e) {
