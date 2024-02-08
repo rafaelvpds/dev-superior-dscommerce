@@ -7,6 +7,7 @@ public class RequestOrderItemDTO {
     private String name;
     private Double price;
     private Integer quantity;
+    private String img;
 
     public RequestOrderItemDTO() {
     }
@@ -16,6 +17,7 @@ public class RequestOrderItemDTO {
         name = entity.getProduct().getName();
         price = entity.getPrice();
         quantity = entity.getQuantity();
+        img = entity.getProduct().getImgUrl();
     }
 
     public Long getProductId() {
@@ -32,6 +34,10 @@ public class RequestOrderItemDTO {
 
     public Integer getQuantity() {
         return quantity;
+    }
+
+    public String getImg() {
+        return img;
     }
 
     public Double getSubTotal() {
