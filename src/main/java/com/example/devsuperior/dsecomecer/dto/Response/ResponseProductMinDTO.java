@@ -29,7 +29,6 @@ public class ResponseProductMinDTO {
     public ResponseProductMinDTO(RequestProductDTO request) {
         id = request.getId();
         name = request.getName();
-
         price = request.getPrice();
         imgUrl = request.getImgUrl();
     }
