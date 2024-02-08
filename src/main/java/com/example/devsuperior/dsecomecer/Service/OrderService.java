@@ -32,10 +32,14 @@ public class OrderService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private AuthService authService;
+
     @Transactional(readOnly = true)
     public ResponseOrderDTO findById(Long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundExceptions("Order not found"));
+        authService.validateSelfOrAdm(order.getClient().getId());
         return new ResponseOrderDTO(order);
     }
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.example.devsuperior.dsecomecer.Service.exceptions.DatabaseException;
+import com.example.devsuperior.dsecomecer.Service.exceptions.FobidenException;
 import com.example.devsuperior.dsecomecer.Service.exceptions.ResourceNotFoundExceptions;
 import com.example.devsuperior.dsecomecer.dto.Exceptions.CustomError;
 import com.example.devsuperior.dsecomecer.dto.Exceptions.ValidationError;
@@ -44,4 +45,10 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
+    @ExceptionHandler(FobidenException.class)
+    public ResponseEntity<CustomError> fobidenException(FobidenException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.FORBIDDEN;
+        CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
 }
