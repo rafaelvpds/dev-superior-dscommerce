@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.devsuperior.dsecomecer.dto.Request.RequestClientDTO;
+import com.example.devsuperior.dsecomecer.dto.Request.RequestOrderDTO;
 import com.example.devsuperior.dsecomecer.dto.Request.RequestOrderItemDTO;
 import com.example.devsuperior.dsecomecer.dto.Request.RequestPaymentDTO;
 import com.example.devsuperior.dsecomecer.entities.Order;
@@ -42,6 +43,11 @@ public class ResponseOrderDTO {
             RequestOrderItemDTO itemDto = new RequestOrderItemDTO(item);
             items.add(itemDto);
         }
+    }
+
+    public ResponseOrderDTO(RequestOrderDTO requet) {
+        id = requet.getId();
+        items = requet.getItems();
     }
 
     public Long getId() {

@@ -18,13 +18,16 @@ public class RequestProductDTO {
     @NotBlank(message = "Campo requerido")
     @Size(min = 3, max = 80, message = "Nome precisa ter de 3 a 80 caracteres")
     private String name;
+
     @Size(min = 10, message = "descrição precisar ter no min 10 caracteres")
     @NotBlank(message = "Campo requerido")
     private String description;
-    @NotEmpty(message = "Deve conter pelo menos uma categoria")
+
     private String imgUrl;
 
+    @NotEmpty(message = "Deve conter pelo menos uma categoria")
     private List<ResponseCategoryDTO> categories = new ArrayList<>();
+
     @Positive(message = "O preço deve ser positivos")
     private Double price;
 
