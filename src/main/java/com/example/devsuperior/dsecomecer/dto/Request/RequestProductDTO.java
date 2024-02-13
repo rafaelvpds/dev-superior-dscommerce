@@ -9,6 +9,7 @@ import com.example.devsuperior.dsecomecer.entities.Product;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
@@ -27,7 +28,7 @@ public class RequestProductDTO {
 
     @NotEmpty(message = "Deve conter pelo menos uma categoria")
     private List<ResponseCategoryDTO> categories = new ArrayList<>();
-
+    @NotNull(message = "Campo requerido")
     @Positive(message = "O preço deve ser positivos")
     private Double price;
 
