@@ -1,5 +1,6 @@
 package com.example.devsuperior.dsecomecer.dto.Response;
 
+import com.example.devsuperior.dsecomecer.dto.Request.RequestCategoryDTO;
 import com.example.devsuperior.dsecomecer.entities.Category;
 
 public class ResponseCategoryDTO {
@@ -18,6 +19,12 @@ public class ResponseCategoryDTO {
     public ResponseCategoryDTO(Category entity) {
         id = entity.getId();
         name = entity.getName();
+
+    }
+
+    public ResponseCategoryDTO(RequestCategoryDTO request) {
+
+        name = request.getName();
 
     }
 
